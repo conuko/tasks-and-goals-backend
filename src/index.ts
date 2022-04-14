@@ -1,34 +1,84 @@
 import { PrismaClient } from "@prisma/client";
+import express from "express";
 
 const prisma = new PrismaClient();
+const app = express();
 
-async function main() {
-  // ... you will write your Prisma Client queries here
-  const newUser = await prisma.user.create({
+app.use(express.json());
+
+/* Get all users */
+app.get("/users", async (req, res) => {
+  const users = await prisma.user.findMany();
+  res.json(users);
+});
+
+/* Get all tasks */
+app.get("/feed", async (req, res) => {
+  const tasks = await prisma.task.findMany({
+    include: { author: true },
+  });
+  res.json(tasks);
+});
+
+/* Get one specific task with its unique ID */
+app.get(`/task/:id`, async (req, res) => {
+  const { id } = req.params;
+  const task = await prisma.task.findUnique({
+    where: { id: String(id) },
+  });
+  res.json(task);
+});
+
+/* Create new user */
+app.post(`/user`, async (req, res) => {
+  const result = await prisma.user.create({
+    data: { ...req.body },
+  });
+  res.json(result);
+});
+
+/* Create new task which is connected via email with the user */
+app.post(`/task`, async (req, res) => {
+  const { content, authorEmail } = req.body;
+  const result = await prisma.task.create({
     data: {
-      name: "Consti",
-      email: "consti@prisma.io",
-      password: "123",
-      tasks: {
-        create: {
-          content: "Hello World!",
-        },
-      },
+      content,
+      checked: false,
+      author: { connect: { email: authorEmail } },
     },
   });
-  console.log("Created new user: ", newUser);
+  res.json(result);
+});
 
-  const allUsers = await prisma.user.findMany({
-    include: { tasks: true },
+/* Update: Check the checked field */
+app.put("/task/check/:id", async (req, res) => {
+  const { id } = req.params;
+  const task = await prisma.task.update({
+    where: { id: String(id) },
+    data: { checked: true },
   });
-  console.log("All users: ");
-  console.dir(allUsers, { depth: null });
-}
+  res.json(task);
+});
 
-main()
-  .catch((e) => {
-    throw e;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
+/* Update: Uncheck the checked field */
+app.put("/task/uncheck/:id", async (req, res) => {
+  const { id } = req.params;
+  const task = await prisma.task.update({
+    where: { id: String(id) },
+    data: { checked: false },
   });
+  res.json(task);
+});
+
+/* Delete a task */
+app.delete(`/task/:id`, async (req, res) => {
+  const { id } = req.params;
+  const task = await prisma.task.delete({
+    where: { id: String(id) },
+  });
+  res.json(task);
+});
+
+app.listen(3000, () =>
+  console.log("REST API server ready at: http://localhost:3000")
+);
