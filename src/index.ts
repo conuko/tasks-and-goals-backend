@@ -1,10 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
 
+const bodyParser = require("body-parser");
+
+const user = require("../controllers/auth.controller");
 const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
+
+require("dotenv").config();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 /* Get all users */
 app.get("/users", async (req, res) => {
@@ -36,6 +43,10 @@ app.post(`/user`, async (req, res) => {
   });
   res.json(result);
 });
+
+app.post(`/auth/register`, user.register);
+
+app.post(`/auth/login`, user.login);
 
 /* Create new task which is connected via email with the user */
 app.post(`/task`, async (req, res) => {
