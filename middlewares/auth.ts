@@ -1,4 +1,6 @@
-const authMid = async (
+const jwt = require("../utils/jwt");
+const createError = require("http-errors");
+const auth = async (
   req: { headers: { authorization: string }; user: any },
   res: any,
   next: (arg0: undefined) => void
@@ -14,9 +16,10 @@ const authMid = async (
     .verifyAccessToken(token)
     .then((user: any) => {
       req.user = user;
+      next(undefined);
     })
     .catch((e: { message: any }) => {
       next(createError.Unauthorized(e.message));
     });
 };
-module.exports = authMid;
+module.exports = auth;

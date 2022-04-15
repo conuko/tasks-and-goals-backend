@@ -4,6 +4,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const user = require("../controllers/auth.controller");
+const auth = require("../middlewares/auth");
 
 const prisma = new PrismaClient();
 
@@ -17,10 +18,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /* Get all users */
-app.get("/users", async (req, res) => {
+/* app.get("/users", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json(users);
-});
+}); */
+
+app.get("/users", auth, user.all);
 
 /* Get all tasks */
 app.get("/tasks", async (req, res) => {

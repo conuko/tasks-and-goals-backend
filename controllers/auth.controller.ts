@@ -2,6 +2,7 @@ import auth from "../services/auth.service";
 import createError from "http-errors";
 
 class authController {
+  /* Register new user */
   static register = async (
     req: { body: any },
     res: {
@@ -27,6 +28,8 @@ class authController {
       next(createError(e.statusCode, e.message));
     }
   };
+
+  /* Login as a user */
   static login = async (
     req: { body: any },
     res: {
@@ -52,6 +55,8 @@ class authController {
       next(createError(e.statusCode, e.message));
     }
   };
+
+  /* Get all users */
   static all = async (
     req: any,
     res: {
