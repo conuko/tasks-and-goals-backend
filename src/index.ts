@@ -17,6 +17,8 @@ require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// TO DO: fix auth.ts in middelware so that authorization route is fully functional.
+
 /* Get all users */
 /* app.get("/users", async (req, res) => {
   const users = await prisma.user.findMany();
@@ -25,10 +27,30 @@ app.use(bodyParser.json());
 
 app.get("/users", auth, user.all);
 
+/* Get user profile */
+app.get("/profile/:id", async (req, res) => {
+  const { id } = req.params;
+  const profile = await prisma.user.findUnique({
+    where: { id: String(id) },
+  });
+  res.json(profile);
+});
+
 /* Get all tasks */
 app.get("/tasks", async (req, res) => {
   const tasks = await prisma.task.findMany({
     include: { author: true },
+  });
+  res.json(tasks);
+});
+
+/* Get all tasks of one user */
+app.get(`/tasks/author/:id`, async (req, res) => {
+  const { id } = req.params;
+  const tasks = await prisma.task.findMany({
+    where: {
+      authorId: String(id),
+    },
   });
   res.json(tasks);
 });
