@@ -1,15 +1,18 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
 
-const bodyParser = require("body-parser");
+import bodyParser from "body-parser";
 
 const user = require("../controllers/auth.controller");
+
 const prisma = new PrismaClient();
+
 const app = express();
 
 app.use(express.json());
 
 require("dotenv").config();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -20,7 +23,7 @@ app.get("/users", async (req, res) => {
 });
 
 /* Get all tasks */
-app.get("/feed", async (req, res) => {
+app.get("/tasks", async (req, res) => {
   const tasks = await prisma.task.findMany({
     include: { author: true },
   });
@@ -36,16 +39,10 @@ app.get(`/task/:id`, async (req, res) => {
   res.json(task);
 });
 
-/* Create new user */
-app.post(`/user`, async (req, res) => {
-  const result = await prisma.user.create({
-    data: { ...req.body },
-  });
-  res.json(result);
-});
+/* Register new user */
+app.post(`/auth`, user.register);
 
-app.post(`/auth/register`, user.register);
-
+/* Login as a user */
 app.post(`/auth/login`, user.login);
 
 /* Create new task which is connected via email with the user */
