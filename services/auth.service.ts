@@ -12,6 +12,7 @@ class AuthService {
     password: any;
     accessToken?: any;
     email: any;
+    id: any;
   }) {
     const { email } = data;
     data.password = bcrypt.hashSync(data.password, 8);

@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
-
 import bodyParser from "body-parser";
+import cors from "cors";
 
 const user = require("../controllers/auth.controller");
 const auth = require("../middlewares/auth");
@@ -14,21 +14,14 @@ app.use(express.json());
 
 require("dotenv").config();
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// TO DO: fix auth.ts in middelware so that authorization route is fully functional.
-
-/* Get all users */
-/* app.get("/users", async (req, res) => {
-  const users = await prisma.user.findMany();
-  res.json(users);
-}); */
 
 app.get("/users", auth, user.all);
 
 /* Get user profile */
-app.get("/profile/:id", async (req, res) => {
+app.get("/profile/:id", auth, async (req, res) => {
   const { id } = req.params;
   const profile = await prisma.user.findUnique({
     where: { id: String(id) },
@@ -37,7 +30,7 @@ app.get("/profile/:id", async (req, res) => {
 });
 
 /* Get all tasks */
-app.get("/tasks", async (req, res) => {
+app.get("/tasks", auth, async (req, res) => {
   const tasks = await prisma.task.findMany({
     include: { author: true },
   });
@@ -45,7 +38,7 @@ app.get("/tasks", async (req, res) => {
 });
 
 /* Get all tasks of one user */
-app.get(`/tasks/author/:id`, async (req, res) => {
+app.get(`/tasks/author/:id`, auth, async (req, res) => {
   const { id } = req.params;
   const tasks = await prisma.task.findMany({
     where: {
@@ -56,7 +49,7 @@ app.get(`/tasks/author/:id`, async (req, res) => {
 });
 
 /* Get one specific task with its unique ID */
-app.get(`/task/:id`, async (req, res) => {
+app.get(`/task/:id`, auth, async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.findUnique({
     where: { id: String(id) },
