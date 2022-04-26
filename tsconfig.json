@@ -2,10 +2,11 @@
 	"compilerOptions": {
 		"moduleResolution": "node",
 		"sourceMap": true,
-		"outDir": "dist",
+		"outDir": "./dist",
 		"strict": true,
 		"lib": ["esnext"],
 		"esModuleInterop": true
 	},
-	"include": ["src/**/*"]
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
 }
