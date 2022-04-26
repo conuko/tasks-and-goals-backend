@@ -5,7 +5,8 @@ A REST-API with Prisma and PostgreSQL.
 ## Prerequisites
 
 1. Node.js v16.x.x installed on your machine
-2. Docker installed on your machine
+2. Npm installed on your machine
+3. Docker installed on your machine
 
 ## Get started
 
