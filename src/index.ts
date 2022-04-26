@@ -18,8 +18,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get("/users", auth, user.all);
-
 /* Get user profile */
 app.get("/profile/:id", auth, async (req, res) => {
   const { id } = req.params;

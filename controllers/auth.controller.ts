@@ -55,33 +55,6 @@ class authController {
       next(createError(e.statusCode, e.message));
     }
   };
-
-  /* Get all users */
-  static all = async (
-    req: any,
-    res: {
-      status: (arg0: number) => {
-        (): any;
-        new (): any;
-        json: {
-          (arg0: { status: boolean; message: string; data: any }): void;
-          new (): any;
-        };
-      };
-    },
-    next: (arg0: any) => void
-  ) => {
-    try {
-      const users = await auth.all();
-      res.status(200).json({
-        status: true,
-        message: "All users",
-        data: users,
-      });
-    } catch (e: any) {
-      next(createError(e.statusCode, e.message));
-    }
-  };
 }
 
 module.exports = authController;
