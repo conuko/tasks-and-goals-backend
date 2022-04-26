@@ -4,7 +4,7 @@
 	"description": "A REST-API with Prisma and PostgreSQL.",
 	"main": "index.js",
 	"scripts": {
-		"start": "node dist/src/index.js",
+		"start": "node dist/index.js",
 		"postinstall": "tsc",
 		"watch-node": "nodemon dist/index.js",
 		"watch-ts": "tsc -w",
