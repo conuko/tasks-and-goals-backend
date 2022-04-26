@@ -94,7 +94,7 @@ app.put("/task/uncheck/:id", async (req: any, res: any) => {
   res.json(task);
 });
 
-/* Delete a task */
+/* Delete a taskk */
 app.delete(`/task/:id`, async (req: any, res: any) => {
   const { id } = req.params;
   const task = await prisma.task.delete({
