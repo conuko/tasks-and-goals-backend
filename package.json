@@ -24,6 +24,7 @@
 	"homepage": "https://github.com/conuko/tasks-and-goals-backend#readme",
 	"devDependencies": {
 		"@types/bcryptjs": "^2.4.2",
+		"@types/body-parser": "^1.19.2",
 		"@types/cors": "^2.8.12",
 		"@types/express": "^4.17.13",
 		"@types/http-errors": "^1.8.2",
