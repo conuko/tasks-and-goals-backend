@@ -24,6 +24,6 @@ model Task {
   updatedAt DateTime @updatedAt
   checked Boolean @default(false)
   content String?
-  author User? @relation(fields: [authorId], references: [id])
+  author User? @relation(fields: [authorId], references: [email])
   authorId String?
 }

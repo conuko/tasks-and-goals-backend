@@ -18,8 +18,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get("/users", auth, user.all);
-
 /* Get user profile */
 app.get("/profile/:id", auth, async (req, res) => {
   const { id } = req.params;
@@ -38,11 +36,11 @@ app.get("/tasks", auth, async (req, res) => {
 });
 
 /* Get all tasks of one user */
-app.get(`/tasks/author/:id`, auth, async (req, res) => {
-  const { id } = req.params;
+app.get(`/tasks/author/:email`, auth, async (req, res) => {
+  const { email } = req.params;
   const tasks = await prisma.task.findMany({
     where: {
-      authorId: String(id),
+      authorId: String(email),
     },
   });
   res.json(tasks);
