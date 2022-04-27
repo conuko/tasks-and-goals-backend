@@ -1,5 +1,5 @@
-import auth from "../services/auth.service";
-import createError from "http-errors";
+const auth = require("../services/auth.service");
+const createError = require("http-errors");
 
 class authController {
   /* Register new user */

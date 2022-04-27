@@ -1,9 +1,9 @@
-import bcrypt from "bcryptjs";
-import createError from "http-errors";
+const bcrypt = require("bcryptjs");
+const jwt = require("../utils/jwt");
+const createError = require("http-errors");
 
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const jwt = require("../utils/jwt");
 
 require("dotenv").config();
 
@@ -26,15 +26,15 @@ class AuthService {
       },
     });
     if (!user) {
-      throw new createError.NotFound("User not registered");
+      throw createError.NotFound("User not registered");
     }
     const checkPassword = bcrypt.compareSync(password, user.password);
     if (!checkPassword)
-      throw new createError.Unauthorized("Email address or password not valid");
+      throw createError.Unauthorized("Email address or password not valid");
     delete user.password;
     const accessToken = await jwt.signAccessToken(user);
     return { ...user, accessToken };
   }
 }
 
-export default AuthService;
+module.exports = AuthService;
