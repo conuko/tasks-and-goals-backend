@@ -1,10 +1,7 @@
 const jwt = require("../utils/jwt");
 const createError = require("http-errors");
-const auth = async (
-  req: { headers: { authorization: string }; user: any },
-  res: any,
-  next: (arg0: undefined) => void
-) => {
+
+const auth = async (req, res, next) => {
   if (!req.headers.authorization) {
     return next(createError.Unauthorized("Access token is required"));
   }
@@ -14,11 +11,11 @@ const auth = async (
   }
   await jwt
     .verifyAccessToken(token)
-    .then((user: any) => {
+    .then((user) => {
       req.user = user;
-      next(undefined);
+      next();
     })
-    .catch((e: { message: any }) => {
+    .catch((e) => {
       next(createError.Unauthorized(e.message));
     });
 };
