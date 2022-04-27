@@ -3,8 +3,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const user = require("../controllers/auth.controller");
 const auth = require("../middlewares/auth");
+const { PrismaClient } = require("@prisma/client");
 
-const prisma = require("@prisma/client");
+const prisma = new PrismaClient();
 
 const app = express();
 
@@ -17,41 +18,43 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /* Get user profile */
-app.get("/profile/:id", auth, async (req, res) => {
+app.get("/profile/:id", async (req, res) => {
   const { id } = req.params;
   const profile = await prisma.user.findUnique({
-    where: { id: String(id) },
+    where: {
+      id: id,
+    },
   });
   res.json(profile);
 });
 
 /* Get all tasks */
-app.get("/tasks", auth, async (req, res) => {
+/* app.get("/tasks", auth, async (req, res) => {
   const tasks = await prisma.task.findMany({
     include: { author: true },
   });
   res.json(tasks);
-});
+}); */
 
 /* Get all tasks of one user */
 app.get(`/tasks/author/:email`, auth, async (req, res) => {
   const { email } = req.params;
   const tasks = await prisma.task.findMany({
     where: {
-      authorId: String(email),
+      authorId: { equals: email },
     },
   });
   res.json(tasks);
 });
 
 /* Get one specific task with its unique ID */
-app.get(`/task/:id`, auth, async (req, res) => {
+/* app.get(`/task/:id`, auth, async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.findUnique({
-    where: { id: String(id) },
+    where: { id },
   });
   res.json(task);
-});
+}); */
 
 /* Register new user */
 app.post(`/auth`, user.register);
@@ -76,7 +79,7 @@ app.post(`/task`, async (req, res) => {
 app.put("/task/check/:id", async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.update({
-    where: { id: String(id) },
+    where: { id },
     data: { checked: true },
   });
   res.json(task);
@@ -86,7 +89,7 @@ app.put("/task/check/:id", async (req, res) => {
 app.put("/task/uncheck/:id", async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.update({
-    where: { id: String(id) },
+    where: { id },
     data: { checked: false },
   });
   res.json(task);
@@ -96,7 +99,7 @@ app.put("/task/uncheck/:id", async (req, res) => {
 app.delete(`/task/:id`, async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.delete({
-    where: { id: String(id) },
+    where: { id },
   });
   res.json(task);
 });
