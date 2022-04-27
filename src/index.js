@@ -4,14 +4,14 @@ const cors = require("cors");
 const user = require("../controllers/auth.controller");
 const auth = require("../middlewares/auth");
 const { PrismaClient } = require("@prisma/client");
+require("dotenv").config();
 
 const prisma = new PrismaClient();
 
 const app = express();
 
 app.use(express.json());
-
-require("dotenv").config();
+app.use(express.urlencoded({ extended: true }));
 
 const corsOptions = {
   origin: "*",
@@ -20,8 +20,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 /* Get user profile */
 app.get("/profile/:id", async (req, res) => {
