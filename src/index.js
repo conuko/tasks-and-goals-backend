@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /* Get user profile */
-app.get("/profile/:id", auth, async (req: any, res: any) => {
+app.get("/profile/:id", auth, async (req, res) => {
   const { id } = req.params;
   const profile = await prisma.user.findUnique({
     where: { id: String(id) },
@@ -28,7 +28,7 @@ app.get("/profile/:id", auth, async (req: any, res: any) => {
 });
 
 /* Get all tasks */
-app.get("/tasks", auth, async (req: any, res: any) => {
+app.get("/tasks", auth, async (req, res) => {
   const tasks = await prisma.task.findMany({
     include: { author: true },
   });
@@ -36,7 +36,7 @@ app.get("/tasks", auth, async (req: any, res: any) => {
 });
 
 /* Get all tasks of one user */
-app.get(`/tasks/author/:email`, auth, async (req: any, res: any) => {
+app.get(`/tasks/author/:email`, auth, async (req, res) => {
   const { email } = req.params;
   const tasks = await prisma.task.findMany({
     where: {
@@ -47,7 +47,7 @@ app.get(`/tasks/author/:email`, auth, async (req: any, res: any) => {
 });
 
 /* Get one specific task with its unique ID */
-app.get(`/task/:id`, auth, async (req: any, res: any) => {
+app.get(`/task/:id`, auth, async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.findUnique({
     where: { id: String(id) },
@@ -62,7 +62,7 @@ app.post(`/auth`, user.register);
 app.post(`/auth/login`, user.login);
 
 /* Create new task which is connected via email with the user */
-app.post(`/task`, async (req: any, res: any) => {
+app.post(`/task`, async (req, res) => {
   const { content, authorEmail } = req.body;
   const result = await prisma.task.create({
     data: {
@@ -75,7 +75,7 @@ app.post(`/task`, async (req: any, res: any) => {
 });
 
 /* Update: Check the checked field */
-app.put("/task/check/:id", async (req: any, res: any) => {
+app.put("/task/check/:id", async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.update({
     where: { id: String(id) },
@@ -85,7 +85,7 @@ app.put("/task/check/:id", async (req: any, res: any) => {
 });
 
 /* Update: Uncheck the checked field */
-app.put("/task/uncheck/:id", async (req: any, res: any) => {
+app.put("/task/uncheck/:id", async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.update({
     where: { id: String(id) },
@@ -95,7 +95,7 @@ app.put("/task/uncheck/:id", async (req: any, res: any) => {
 });
 
 /* Delete a task */
-app.delete(`/task/:id`, async (req: any, res: any) => {
+app.delete(`/task/:id`, async (req, res) => {
   const { id } = req.params;
   const task = await prisma.task.delete({
     where: { id: String(id) },
