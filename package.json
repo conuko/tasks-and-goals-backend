@@ -1,6 +1,9 @@
 {
 	"name": "tasks-and-goals-backend",
 	"version": "1.0.0",
+	"engines": {
+		"node": "16.x"
+	},
 	"description": "A REST-API with Prisma and PostgreSQL.",
 	"main": "index.js",
 	"scripts": {
