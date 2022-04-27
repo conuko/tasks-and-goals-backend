@@ -4,6 +4,8 @@
 	"description": "A REST-API with Prisma and PostgreSQL.",
 	"main": "index.js",
 	"scripts": {
+		"build": "prisma generate",
+		"dev": "PORT=5000 node src/index.js",
 		"start": "node src/index.js",
 		"db:up": "docker-compose up -d",
 		"db:down": "docker-compose down",
