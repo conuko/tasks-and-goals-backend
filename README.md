@@ -57,14 +57,14 @@ You now need to adjust the connection URL to point to your own database.
 The following endpoints are available:
 
 | Endpoints                  | Usage                                                       |
-| -------------------------- | ----------------------------------------------------------- | ---- |
+| -------------------------- | ----------------------------------------------------------- |
 | `GET /tasks/author/:email` | Get all tasks of one specific user.                         |
 | `POST /auth`               | Register a new user.                                        |
 | `POST /auth/login`         | Login as a user.                                            |
 | `POST /task`               | Add a new task which is connected via email with the user.  |
 | `PUT /task/check/:id`      | Check an existing task by setting checked field to true.    |
 | `PUT /task/uncheck/:id`    | Uncheck an existing task by setting checked field to false. |
-| `DELETE /task/:id`         | Delete a task.                                              | <br> |
+| `DELETE /task/:id`         | Delete a task.                                              |
 
 ## Database
 
