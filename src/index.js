@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 /* Get user profile */
-app.get("/profile/:id", async (req, res) => {
+/* app.get("/profile/:id", async (req, res) => {
   const { id } = req.params;
   const profile = await prisma.user.findUnique({
     where: {
@@ -31,15 +31,7 @@ app.get("/profile/:id", async (req, res) => {
   });
   res.json(profile);
 });
-
-/* Get all tasks */
-/* app.get("/tasks", auth, async (req, res) => {
-  const tasks = await prisma.task.findMany({
-    include: { author: true },
-  });
-  res.json(tasks);
-}); */
-
+ */
 /* Get all tasks of one user */
 app.get(`/tasks/author/:email`, auth, async (req, res) => {
   const { email } = req.params;
