@@ -21,17 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 
-/* Get user profile */
-/* app.get("/profile/:id", async (req, res) => {
-  const { id } = req.params;
-  const profile = await prisma.user.findUnique({
-    where: {
-      id: id,
-    },
-  });
-  res.json(profile);
-});
- */
 /* Get all tasks of one user */
 app.get(`/tasks/author/:email`, auth, async (req, res) => {
   const { email } = req.params;
@@ -42,15 +31,6 @@ app.get(`/tasks/author/:email`, auth, async (req, res) => {
   });
   res.json(tasks);
 });
-
-/* Get one specific task with its unique ID */
-/* app.get(`/task/:id`, auth, async (req, res) => {
-  const { id } = req.params;
-  const task = await prisma.task.findUnique({
-    where: { id },
-  });
-  res.json(task);
-}); */
 
 /* Register new user */
 app.post(`/auth`, user.register);
