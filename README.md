@@ -36,8 +36,6 @@ You now need to adjust the connection URL to point to your own database.
 
 5. `npm run dev` to run the server
 
-## Architecture
-
 ## Tech Stack
 
 1. **Prisma**
@@ -51,6 +49,10 @@ You now need to adjust the connection URL to point to your own database.
 
 3. **PostgreSQL**
    PostgreSQL is a relational database management system (RDBMS) that runs on top of the PostgreSQL server.
+
+## Architecture
+
+
 
 ## API Endpoints
 
@@ -70,7 +72,13 @@ The following endpoints are available:
 
 The DB Schema includes a User and a Task. It is designed in the following way:
 
+![Bildschirmfoto 2022-05-01 um 01 05 41](https://user-images.githubusercontent.com/50672977/166125460-90eb4dcf-ddc2-4532-b60e-910bc1c2a018.png)
+
+
 ## Authentication
 
 - Uses JWT for token-based authentication. [JSON Web Token](https://jwt.io/)
 - Uses bcrypt for securely hash and salt passwords. [bcrypt](https://www.npmjs.com/package/bcryptjs)
+
+![Authentication](https://user-images.githubusercontent.com/50672977/166125473-7d32be27-ef26-4053-8c7a-0bc0a4cabf8d.png)
+
