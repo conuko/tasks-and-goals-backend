@@ -13,13 +13,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const corsOptions = {
+/* const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
-};
+}; */
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 /* Get user profile */
 app.get("/profile/:id", async (req, res) => {
