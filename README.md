@@ -21,7 +21,7 @@ A Node.js REST API built with Express.js with resource endpoints that use Prisma
 ## Getting started
 
 1. `npm install` to install the dependencies
-2. `db:up` to launch the PostgreSQL database server
+2. `npm run db:up` to launch the PostgreSQL database server
 3. Connect your database: create a .env file with the following content and make sure to change the database credentials to the ones you specified in the Docker Compose file
 
 `DATABASE_URL=postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public`
@@ -29,10 +29,7 @@ A Node.js REST API built with Express.js with resource endpoints that use Prisma
 
 You now need to adjust the connection URL to point to your own database.
 
-4. OPTIONAL: Creating the database schema: there is already a schema and migrations. But if you want to change the schema you can change the schema in the following file
-   `prisma/schema.prisma`
-   To map your data model to the database schema, you need to use the prisma migrate CLI commands
-   `npx prisma migrate dev --name init`
+4. `npx prisma migrate dev --name init` to map your data model from the prisma schema to the database schema.
 
 5. `npm run dev` to run the server
 
