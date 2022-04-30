@@ -1,6 +1,16 @@
 # Tasks and Goals / Backend
 
-A REST-API with Prisma and PostgreSQL.
+A Node.js REST API built with Express.js with resource endpoints that use Prisma Client to handle database operations against a PostgreSQL database. Hosted on Heroku.
+
+## Summary
+
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [API Endpoints](#api-endpoints)
+- [Data Base](#database)
+- [Authentication](#authentication)
 
 ## Prerequisites
 
@@ -8,12 +18,10 @@ A REST-API with Prisma and PostgreSQL.
 2. Npm installed on your machine
 3. Docker installed on your machine
 
-## Get started
+## Getting started
 
-1. Install dependencies
-   `npm install`
-2. Launch the PostgreSQL database server
-   `db:up`
+1. `npm install` to install the dependencies
+2. `db:up` to launch the PostgreSQL database server
 3. Connect your database: create a .env file with the following content and make sure to change the database credentials to the ones you specified in the Docker Compose file
 
 `DATABASE_URL=postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public`
@@ -26,14 +34,41 @@ You now need to adjust the connection URL to point to your own database.
    To map your data model to the database schema, you need to use the prisma migrate CLI commands
    `npx prisma migrate dev --name init`
 
-5. Run the server
-   `npm run dev`
+5. `npm run dev` to run the server
 
-## Prisma and PostgreSQL
+## Architecture
 
-At the core of Prisma is the [Prisma schema](https://www.prisma.io/docs/concepts/components/prisma-schema) – a declarative configuration where you define your data model and other Prisma-related configuration. The Prisma schema is also a single source of truth for both Prisma Client and Prisma Migrate.
+## Tech Stack
 
-[Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate) is used to create the database schema. Based on the Prisma schema, you can create a migration file that adds or removes fields, or changes the type of a field. Prisma Migrate also supports adding and removing relations between models.
+1. **Prisma**
+   At the core of Prisma is the [Prisma schema](https://www.prisma.io/docs/concepts/components/prisma-schema) – a declarative configuration where you define your data model and other Prisma-related configuration. The Prisma schema is also a single source of truth for both Prisma Client and Prisma Migrate.
+   [Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate) is used to create the database schema. Based on the Prisma schema, you can create a migration file that adds or removes fields, or changes the type of a field. Prisma Migrate also supports adding and removing relations between models.
+
+2. **Node.js and Express.js**
+   Express.js is a minimalistic framework for Node.js that provides a robust set of features for web applications.
+   The Express Server handles all CRUD operations and routes.
+   [Express.js](https://expressjs.com/)
+
+3. **PostgreSQL**
+   PostgreSQL is a relational database management system (RDBMS) that runs on top of the PostgreSQL server.
+
+## API Endpoints
+
+The following endpoints are available:
+
+| Endpoints                  | Usage                                                       |
+| -------------------------- | ----------------------------------------------------------- | ---- |
+| `GET /tasks/author/:email` | Get all tasks of one specific user.                         |
+| `POST /auth`               | Register a new user.                                        |
+| `POST /auth/login`         | Login as a user.                                            |
+| `POST /task`               | Add a new task which is connected via email with the user.  |
+| `PUT /task/check/:id`      | Check an existing task by setting checked field to true.    |
+| `PUT /task/uncheck/:id`    | Uncheck an existing task by setting checked field to false. |
+| `DELETE /task/:id`         | Delete a task.                                              | <br> |
+
+## Database
+
+The DB Schema includes a User and a Task. It is designed in the following way:
 
 ## Authentication
 
