@@ -25,6 +25,7 @@ A Node.js REST API built with Express.js with resource endpoints that use Prisma
 3. Connect your database: create a .env file with the following content and make sure to change the database credentials to the ones you specified in the Docker Compose file
 
 `DATABASE_URL=postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public`
+
 `ACCESS_TOKEN_SECRET=<your secret access token>`
 
 You now need to adjust the connection URL to point to your own database.
