@@ -49,6 +49,7 @@ You now need to adjust the connection URL to point to your own database.
    PostgreSQL is a relational database management system (RDBMS) that runs on top of the PostgreSQL server.
 
 ## Architecture
+![Flow Chart FE, BE, DB](https://user-images.githubusercontent.com/50672977/166144759-afd20404-41bc-4a37-be8d-3a685d295f17.png)
 
 ## API Endpoints
 
