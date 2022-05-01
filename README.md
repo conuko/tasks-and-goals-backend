@@ -11,6 +11,7 @@ A Node.js REST API built with Express.js with resource endpoints that use Prisma
 - [API Endpoints](#api-endpoints)
 - [Data Base](#database)
 - [Authentication](#authentication)
+- [Front End](#front-end)
 
 ## Prerequisites
 
