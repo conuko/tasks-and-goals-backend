@@ -1,4 +1,4 @@
-# Tasks and Goals / Backend
+# Shortlist / Backend
 
 A Node.js REST API built with Express.js with resource endpoints that use Prisma Client to handle database operations against a PostgreSQL database. Hosted on Heroku.
 
@@ -18,7 +18,7 @@ A Node.js REST API built with Express.js with resource endpoints that use Prisma
 2. Npm installed on your machine
 3. Docker installed on your machine
 
-## Getting started
+## Getting Started
 
 1. `npm install` to install the dependencies
 2. `npm run db:up` to launch the PostgreSQL database server
@@ -50,8 +50,6 @@ You now need to adjust the connection URL to point to your own database.
 
 ## Architecture
 
-
-
 ## API Endpoints
 
 The following endpoints are available:
@@ -72,11 +70,9 @@ The DB Schema includes a User and a Task. It is designed in the following way:
 
 ![Bildschirmfoto 2022-05-01 um 01 05 41](https://user-images.githubusercontent.com/50672977/166125460-90eb4dcf-ddc2-4532-b60e-910bc1c2a018.png)
 
-
 ## Authentication
 
 - Uses JWT for token-based authentication. [JSON Web Token](https://jwt.io/)
 - Uses bcrypt for securely hash and salt passwords. [bcrypt](https://www.npmjs.com/package/bcryptjs)
 
 ![Authentication](https://user-images.githubusercontent.com/50672977/166125473-7d32be27-ef26-4053-8c7a-0bc0a4cabf8d.png)
-
