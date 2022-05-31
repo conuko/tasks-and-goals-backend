@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 /* Get all tasks of one user */
-app.get(`/tasks/author/:email`, auth, async (req, res) => {
+app.get(`/tasks/author/:email`, async (req, res) => {
   const { email } = req.params;
   const tasks = await prisma.task.findMany({
     where: {
